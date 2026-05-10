@@ -1,0 +1,72 @@
+public class QuickSort {
+    // 1. 对外公开入口：只传数组，给外部其他代码调用
+    public static void quickSort(int[] arr) {
+        // 健壮性校验：封装必备
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+        // 内部调用私有递归
+        sort(arr, 0, arr.length - 1);
+    }
+
+    // 2. 私有递归：隐藏 l、r，外部不许调用
+    private static void sort(int[] arr, int l, int r) {
+        if (l < r) {
+            int mid = hoarePartition(arr, l, r);
+            sort(arr, l, mid - 1);
+            sort(arr, mid + 1, r);
+        }
+    }
+
+    // 3. 私有分区函数：内部逻辑隐藏
+    private static int hoarePartition(int[] arr, int l, int r) {
+        int p = arr[l];
+        int i = l + 1;
+        int j = r;
+        while (true) {
+            for (; i <= r; i++) {
+                if (arr[i] >= p) break;
+            }
+            for (; j > l; j--) {
+                if (arr[j] <= p) break;
+            }
+            if (i <= j) {
+                swap(arr, i, j);
+                i++;
+                j--;
+            } else {
+                swap(arr, l, j);
+                break;
+            }
+        }
+        return j;
+    }
+
+    // 4. 私有交换方法：仅内部使用
+    private static void swap(int arr[], int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    // 新增：Java 程序标准主方法，作为程序执行入口
+    public static void main(String[] args) {
+        // 测试用例：待排序数组
+        int[] testArr = {9, 5, 1, 4, 3, 8, 2, 7, 6};
+        
+        // 打印排序前数组
+        System.out.println("排序前数组：");
+        for (int num : testArr) {
+            System.out.print(num + " ");
+        }
+        
+        // 调用快速排序方法
+        quickSort(testArr);
+        
+        // 打印排序后数组
+        System.out.println("\n排序后数组：");
+        for (int num : testArr) {
+            System.out.print(num + " ");
+        }
+    }
+}
