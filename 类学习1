@@ -1,0 +1,33 @@
+public class Student {
+    private String name;
+    private double score;
+
+    public Student(String name, double score) {
+        this.name=name;
+        this.score=score;
+    }
+
+    public void setScore(double score){
+        this.score=score;
+    }
+
+    public double getScore(){
+        return score;
+    }
+
+    public void printInfo(){
+        System.out.println(name+"分数是："+score);
+    }
+
+    
+
+    public static void main(String[] args){
+        Student student1=new Student("柯洁",76);
+        Student student2=new Student("二",40);
+        student2.setScore(80);
+        System.out.println(student1.getScore());
+        student1.printInfo();
+        student2.printInfo();
+    }
+
+}
